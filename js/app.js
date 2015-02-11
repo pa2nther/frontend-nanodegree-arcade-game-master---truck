@@ -34,7 +34,7 @@ Enemy.prototype.update = function(dt) {
     if(this.d=='r'){//for right moving vehicles
     if (this.x < 505) {
      
-     this.x+=this.x*dt/.7*Math.random()*5;
+     this.x+=this.x*dt/.8*Math.random()*5;
        //checks for collisions
       // console.log(this.x-player.x);
       //                                                                                                                                                                                                                             console.log(this.y-player.y);
@@ -58,7 +58,7 @@ Enemy.prototype.update = function(dt) {
     //handle left moving vehicles
     if(this.d=='l'){
       if (this.x > 1) {
-       this.x-=this.x*dt/.7*Math.random()*7;
+       this.x-=this.x*dt/.8*Math.random()*7;
        //checks for collisions
       // console.log(this.x-player.x);
       //                                                                                                                                                                                                                             console.log(this.y-player.y);
