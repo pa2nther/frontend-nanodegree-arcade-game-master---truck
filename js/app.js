@@ -9,8 +9,8 @@
 
 
  // Enemies our player must avoid
-//takes 3 variables-x is x position, y is y position,s for img choice
-var Enemy = function(x,y,s) {
+ //takes 3 variables-x is x position, y is y position,s for img choice
+ var Enemy = function(x,y,s) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -19,7 +19,7 @@ var Enemy = function(x,y,s) {
     this.sprite = s;
     this.x=x;
     this.y=y;
-    this.d='r';
+    this.direction='r';
 }
 
 // Update the enemy's position, required method for game
@@ -31,14 +31,14 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     var collide;
     //moves across width of screen,then restart
-    if(this.d=='r'){//for right moving vehicles
+    if(this.direction=='r'){//for right moving vehicles
     if (this.x < 505) {
      
      this.x+=this.x*dt/.8*Math.random()*5;
        //checks for collisions
       // console.log(this.x-player.x);
       //                                                                                                                                                                                                                             console.log(this.y-player.y);
-       if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
+      if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
        document.getElementById('lose').style.display='block';
        player.collide+=1;
        console.log(player.collide);
@@ -51,12 +51,12 @@ Enemy.prototype.update = function(dt) {
 
     } else {
         this.x=1*Math.random()*15;
-         document.getElementById('lose').style.display='none';
+        document.getElementById('lose').style.display='none';
 
     }}
 
     //handle left moving vehicles
-    if(this.d=='l'){
+    if(this.direction=='l'){
       if (this.x > 1) {
        this.x-=this.x*dt/.8*Math.random()*7;
        //checks for collisions
@@ -107,20 +107,20 @@ Player.prototype.render = function() {
 
 //Update player
 //takes 2 variables key pressed & whether to inc/dec
-Player.prototype.update = function(r,i){
+Player.prototype.update = function(r,keyp){
     var r=r;
-    var i=i;
+    var kp=keyp;
     
     
     //moves player 1 block on screen right or left
-    if (i=="right" || i=="left") {
+    if (kp=="right" || kp=="left") {
     if (this.x+90*r>-38 && this.x+90*r<500) {
         this.x+=90*r;
 
     }
 }
    //moves player 1 block  if up or down key pressed
-   if (i=="up" || i=="down") {
+   if (kp=="up" || kp=="down") {
    if (this.y+85*r>-69 && this.y+85*r<500) {
         this.y+=85*r;
 
@@ -132,7 +132,7 @@ Player.prototype.update = function(r,i){
     document.getElementById('win').style.display='block';
     
     
-    if(i=='space'){
+    if(kp=='space'){
     this.y=330;
     this.x=230;
     player.collide=0;
@@ -150,11 +150,11 @@ Player.prototype.update = function(r,i){
 }
 
 //Handle input
-Player.prototype.handleInput = function(i){
-    var i=i;
-    var result=0;
+Player.prototype.handleInput = function(keyp){
+    var kp = keyp;
+    var result = 0;
     
-    switch (i) {
+    switch (kp) {
         case "left":
         result=-1;
         break;
@@ -170,20 +170,20 @@ Player.prototype.handleInput = function(i){
        
 
     }
-    player.update(result,i);
+    player.update(result,kp);
 
 }
 
 
 // Now instantiate your objects.
-var image1='images/Beetle-car.png';
-var image2='images/cyberscooty-truck.png';
-var image3='images/Dumptruck.png';
+var image1 = 'images/Beetle-car.png';
+var image2 = 'images/cyberscooty-truck.png';
+var image3 = 'images/Dumptruck.png';
 var p1 = new Player(230,330);
 var e1 = new Enemy(7,223,image1);
 var e2 = new Enemy(490,135,image2);
 var e3 = new Enemy(15,55,image3);
-e2.d='l';
+e2.direction='l';
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [e1,e2,e3];
 // Place the player object in a variable called player
