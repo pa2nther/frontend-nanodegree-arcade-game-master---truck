@@ -5,8 +5,11 @@ Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015
 
 for self-checking their submission.
 
-This is a frogger game variation in javascript. There is a simple version that includes 2 enemy bugs. The harder version includes 3 vehicles. 
+Background
+This is a frogger game variation in javascript. There is a simple version that includes 2 enemy bugs at http://pa2nther.github.io/frontend-nanodegree-arcade-game. The harder version includes 3 vehicles. The link to play this game is 
 
+
+How to Play 
 The object is to cross the road and reach the water. The arrow keys are used to move the player. After reaching the water, press 
 the space bar to reset the player. 
 
