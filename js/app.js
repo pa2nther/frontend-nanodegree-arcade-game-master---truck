@@ -38,9 +38,7 @@ Enemy.prototype.update = function(dt) {
 
     } else {
         this.x=1*Math.random()*15;
-        document.getElementById('lose').style.display='none';
-
-    }}
+        }}
 
     //handle left moving vehicles
     if(this.direction=='l'){
