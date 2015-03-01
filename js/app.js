@@ -1,16 +1,6 @@
-//make sure the divs on index do not display
- document.getElementById('win').style.display='none';
- document.getElementById('lose').style.display='none';
- document.getElementById('timec').style.display='none';
- var d=document.getElementById('win');
- d.innerHTML+='<h3>You Win!Press space to play again.</h3>';
- var l=document.getElementById('lose');
- l.innerHTML+='<h3>You were hit. Try again</h3>';
-
-
  // Enemies our player must avoid
-//takes 3 variables-x is x position, y is y position,s for img choice
-var Enemy = function(x,y,s) {
+ //takes 3 variables-x is x position, y is y position,s for img choice
+ var Enemy = function(x,y,s) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -19,7 +9,7 @@ var Enemy = function(x,y,s) {
     this.sprite = s;
     this.x=x;
     this.y=y;
-    this.d='r';
+    this.direction='r';
 }
 
 // Update the enemy's position, required method for game
@@ -31,32 +21,29 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     var collide;
     //moves across width of screen,then restart
-    if(this.d=='r'){//for right moving vehicles
+    if(this.direction=='r'){//for right moving vehicles
     if (this.x < 505) {
      
      this.x+=this.x*dt/.8*Math.random()*5;
        //checks for collisions
       // console.log(this.x-player.x);
       //                                                                                                                                                                                                                             console.log(this.y-player.y);
-       if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
+      if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
        document.getElementById('lose').style.display='block';
        player.collide+=1;
        console.log(player.collide);
-       var b=document.getElementById('board');
-      
-       b.innerHTML='<h4>Collisions: ' + player.collide +'</h4>';
        player.x=230;
        player.y=330;
        }
 
     } else {
         this.x=1*Math.random()*15;
-         document.getElementById('lose').style.display='none';
+        document.getElementById('lose').style.display='none';
 
     }}
 
     //handle left moving vehicles
-    if(this.d=='l'){
+    if(this.direction=='l'){
       if (this.x > 1) {
        this.x-=this.x*dt/.8*Math.random()*7;
        //checks for collisions
@@ -65,15 +52,13 @@ Enemy.prototype.update = function(dt) {
        if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
        document.getElementById('lose').style.display='block';
        player.collide+=1;
-       var b=document.getElementById('board');
-       b.innerHTML='<h4>Collisions: ' + player.collide +'</h4>';
        player.x=230;
        player.y=330;
        }
 
     } else {
         this.x=500-Math.random()*10;
-         document.getElementById('lose').style.display='none';
+        document.getElementById('lose').style.display='none';
 
 
     }}
@@ -93,6 +78,8 @@ var Player = function(x,y,s){
     this.x=x;
     this.y=y;
     this.collide=0;
+    this.status="";
+    
 
 }
 // This class requires an update(), render() and
@@ -101,26 +88,31 @@ var Player = function(x,y,s){
 // Draw the player on the screen
 Player.prototype.render = function() {
    
-    ctx.drawImage(Resources.get(this.sprite),this.x,this.y);
+    ctx.drawImage(Resources.get(this.sprite),this.x,this.y);ctx.fillStyle="gray";
+    ctx.fillRect(15,60,150,20);
+    ctx.fillRect(350,60,140,20);
+    ctx.strokeText("Collisions: "+this.collide,40,73);
+    ctx.strokeText(this.status,355,75);
+    
 }
 
 
 //Update player
 //takes 2 variables key pressed & whether to inc/dec
-Player.prototype.update = function(r,i){
+Player.prototype.update = function(r,keyp){
     var r=r;
-    var i=i;
+    var kp=keyp;
     
     
     //moves player 1 block on screen right or left
-    if (i=="right" || i=="left") {
+    if (kp=="right" || kp=="left") {
     if (this.x+90*r>-38 && this.x+90*r<500) {
         this.x+=90*r;
 
     }
 }
    //moves player 1 block  if up or down key pressed
-   if (i=="up" || i=="down") {
+   if (kp=="up" || kp=="down") {
    if (this.y+85*r>-69 && this.y+85*r<500) {
         this.y+=85*r;
 
@@ -129,17 +121,15 @@ Player.prototype.update = function(r,i){
    //checks if the player won by safely crossing
    if (this.y<=-10) {
     
-    document.getElementById('win').style.display='block';
+    this.status="Winner!Space to go again.";
     
     
-    if(i=='space'){
+    if(kp=='space'){
     this.y=330;
     this.x=230;
     player.collide=0;
-    var b=document.getElementById('board');
-      
-       b.innerHTML='<h4>Collisions: 0</h4>';
-   document.getElementById('win').style.display='none';
+    this.status="";
+   
    }
    
    
@@ -150,11 +140,12 @@ Player.prototype.update = function(r,i){
 }
 
 //Handle input
-Player.prototype.handleInput = function(i){
-    var i=i;
-    var result=0;
+Player.prototype.handleInput = function(keyp){
+    this.status="Crossing...";
+    var kp = keyp;
+    var result = 0;
     
-    switch (i) {
+    switch (kp) {
         case "left":
         result=-1;
         break;
@@ -170,20 +161,20 @@ Player.prototype.handleInput = function(i){
        
 
     }
-    player.update(result,i);
+    player.update(result,kp);
 
 }
 
 
 // Now instantiate your objects.
-var image1='images/Beetle-car.png';
-var image2='images/cyberscooty-truck.png';
-var image3='images/Dumptruck.png';
+var image1 = 'images/Beetle-car.png';
+var image2 = 'images/cyberscooty-truck.png';
+var image3 = 'images/Dumptruck.png';
 var p1 = new Player(230,330);
 var e1 = new Enemy(7,223,image1);
 var e2 = new Enemy(490,135,image2);
 var e3 = new Enemy(15,55,image3);
-e2.d='l';
+e2.direction='l';
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [e1,e2,e3];
 // Place the player object in a variable called player
