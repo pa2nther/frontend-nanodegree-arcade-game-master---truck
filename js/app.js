@@ -1,13 +1,3 @@
-//make sure the divs on index do not display
- document.getElementById('win').style.display='none';
- document.getElementById('lose').style.display='none';
- document.getElementById('timec').style.display='none';
- var d=document.getElementById('win');
- d.innerHTML+='<h3>You Win!Press space to play again.</h3>';
- var l=document.getElementById('lose');
- l.innerHTML+='<h3>You were hit. Try again</h3>';
-
-
  // Enemies our player must avoid
  //takes 3 variables-x is x position, y is y position,s for img choice
  var Enemy = function(x,y,s) {
@@ -42,9 +32,6 @@ Enemy.prototype.update = function(dt) {
        document.getElementById('lose').style.display='block';
        player.collide+=1;
        console.log(player.collide);
-       var b=document.getElementById('board');
-      
-       b.innerHTML='<h4>Collisions: ' + player.collide +'</h4>';
        player.x=230;
        player.y=330;
        }
@@ -65,15 +52,13 @@ Enemy.prototype.update = function(dt) {
        if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
        document.getElementById('lose').style.display='block';
        player.collide+=1;
-       var b=document.getElementById('board');
-       b.innerHTML='<h4>Collisions: ' + player.collide +'</h4>';
        player.x=230;
        player.y=330;
        }
 
     } else {
         this.x=500-Math.random()*10;
-         document.getElementById('lose').style.display='none';
+        document.getElementById('lose').style.display='none';
 
 
     }}
@@ -93,6 +78,8 @@ var Player = function(x,y,s){
     this.x=x;
     this.y=y;
     this.collide=0;
+    this.status="";
+    
 
 }
 // This class requires an update(), render() and
@@ -101,7 +88,12 @@ var Player = function(x,y,s){
 // Draw the player on the screen
 Player.prototype.render = function() {
    
-    ctx.drawImage(Resources.get(this.sprite),this.x,this.y);
+    ctx.drawImage(Resources.get(this.sprite),this.x,this.y);ctx.fillStyle="gray";
+    ctx.fillRect(15,60,150,20);
+    ctx.fillRect(350,60,140,20);
+    ctx.strokeText("Collisions: "+this.collide,40,73);
+    ctx.strokeText(this.status,355,75);
+    
 }
 
 
@@ -129,17 +121,15 @@ Player.prototype.update = function(r,keyp){
    //checks if the player won by safely crossing
    if (this.y<=-10) {
     
-    document.getElementById('win').style.display='block';
+    this.status="Winner!Space to go again.";
     
     
     if(kp=='space'){
     this.y=330;
     this.x=230;
     player.collide=0;
-    var b=document.getElementById('board');
-      
-       b.innerHTML='<h4>Collisions: 0</h4>';
-   document.getElementById('win').style.display='none';
+    this.status="";
+   
    }
    
    
@@ -151,6 +141,7 @@ Player.prototype.update = function(r,keyp){
 
 //Handle input
 Player.prototype.handleInput = function(keyp){
+    this.status="Crossing...";
     var kp = keyp;
     var result = 0;
     
