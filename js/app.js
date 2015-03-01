@@ -29,8 +29,7 @@ Enemy.prototype.update = function(dt) {
       // console.log(this.x-player.x);
       //                                                                                                                                                                                                                             console.log(this.y-player.y);
       if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
-       document.getElementById('lose').style.display='block';
-       player.collide+=1;
+      player.collide+=1;
        console.log(player.collide);
        player.x=230;
        player.y=330;
@@ -49,7 +48,6 @@ Enemy.prototype.update = function(dt) {
       // console.log(this.x-player.x);
       //                                                                                                                                                                                                                             console.log(this.y-player.y);
        if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
-       document.getElementById('lose').style.display='block';
        player.collide+=1;
        player.x=230;
        player.y=330;
