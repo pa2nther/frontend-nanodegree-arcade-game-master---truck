@@ -56,10 +56,7 @@ Enemy.prototype.update = function(dt) {
 
     } else {
         this.x=500-Math.random()*10;
-        document.getElementById('lose').style.display='none';
-
-
-    }}
+        }}
 
     }
 
