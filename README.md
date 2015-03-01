@@ -13,8 +13,8 @@ How to Play
 The object is to cross the road and reach the water. The arrow keys are used to move the player. After reaching the water, press 
 the space bar to reset the player. 
 
-Possible updates - To move the collisions position to the board. Allow the player options, add a function to handle when a player
-wins, needs to be reset
+Possible updates - Allow the player options, add functions to handle when a player
+wins and needs to be reset
 
 Resources used-websites-stackoverflow,debbie.popphoto.com/deardebbie/2006/11/dear_debbie_whe.html remove background from graphic,
 mozilla development network,jlongster.com
