@@ -25,43 +25,41 @@ Enemy.prototype.update = function(dt) {
     if (this.x < 505) {
      
      this.x+=this.x*dt/.8*Math.random()*5;
-       //checks for collisions
-      // console.log(this.x-player.x);
-      //                                                                                                                                                                                                                             console.log(this.y-player.y);
-      if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
-       player.collide+=1;
-       console.log(player.collide);
-       player.x=230;
-       player.y=330;
-      }
-
-      } else {
-        this.x=1*Math.random()*15;
-      }}
+        //checks for collisions
+        // console.log(this.x-player.x);
+        //                                                                                                                                                                                                                             console.log(this.y-player.y);
+        if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
+           player.collide+=1;
+           console.log(player.collide);
+           player.x=230;
+           player.y=330;
+        }
+        } else {
+           this.x=1*Math.random()*15;
+        }}
 
     //handle left moving vehicles
     if(this.direction=='l'){
-      if (this.x > 1) {
-       this.x-=this.x*dt/.8*Math.random()*7;
-       //checks for collisions
-       // console.log(this.x-player.x);
-                                                                                                                                                                                                                            console.log(this.y-player.y);
-       if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
-       player.collide+=1;
-       player.x=230;
-       player.y=330;
-       }
+        if (this.x > 1) {
+           this.x-=this.x*dt/.8*Math.random()*7;
+           //checks for collisions
+           // console.log(this.x-player.x);
+        if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
+           player.collide+=1;
+           player.x=230;
+           player.y=330;
+        }
 
-     } else {
-        this.x=500-Math.random()*10;
+        } else {
+           this.x=500-Math.random()*10;
         }}
 
     }
 
 // Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
+    Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+    }
 
 // Now write your own player class
 //Player-The Star of the game
@@ -99,36 +97,27 @@ Player.prototype.update = function(r,keyp){
     
     //moves player 1 block on screen right or left
     if (kp=="right" || kp=="left") {
-    if (this.x+90*r>-38 && this.x+90*r<500) {
-        this.x+=90*r;
+        if (this.x+90*r>-38 && this.x+90*r<500) {
+           this.x+=90*r;
 
+        }
     }
-}
    //moves player 1 block  if up or down key pressed
    if (kp=="up" || kp=="down") {
-   if (this.y+85*r>-69 && this.y+85*r<500) {
-        this.y+=85*r;
+      if (this.y+85*r>-69 && this.y+85*r<500) {
+          this.y+=85*r;
 
-    }
-}
+      }
+   }
    //checks if the player won by safely crossing
    if (this.y<=-10) {
-    
-    this.status="Winner!Space to go again.";
-    
-    
-    if(kp=='space'){
-    this.y=330;
-    this.x=230;
-    player.collide=0;
-    this.status="";
-   
-   }
-   
-   
-  
-   
-   
+      this.status="Winner!Space to go again.";
+      if(kp=='space'){
+         this.y=330;
+         this.x=230;
+          player.collide=0;
+          this.status="";
+      }
    }
 }
 
