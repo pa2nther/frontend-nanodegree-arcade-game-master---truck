@@ -27,7 +27,7 @@ Enemy.prototype.update = function(dt) {
      this.x+=this.x*dt/.8*Math.random()*5;
         //checks for collisions
         // console.log(this.x-player.x);
-        //                                                                                                                                                                                                                             console.log(this.y-player.y);
+        //console.log(this.y-player.y);
         if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
            player.collide+=1;
            console.log(player.collide);
