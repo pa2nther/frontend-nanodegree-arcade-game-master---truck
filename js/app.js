@@ -22,39 +22,37 @@ Enemy.prototype.update = function(dt) {
     var collide;
     //moves across width of screen,then restart
     if(this.direction=='r'){//for right moving vehicles
-    if (this.x < 505) {
-     
-     this.x+=this.x*dt/.8*Math.random()*5;
-       //checks for collisions
-      // console.log(this.x-player.x);
-      //                                                                                                                                                                                                                             console.log(this.y-player.y);
-      if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
-      player.collide+=1;
-       console.log(player.collide);
-       player.x=230;
-       player.y=330;
-       }
+       if (this.x < 505) {
+           this.x+=this.x*dt/.8*Math.random()*5;
+           //checks for collisions
+           // console.log(this.x-player.x);
+           if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
+              player.collide+=1;
+              console.log(player.collide);
+              player.x=230;
+              player.y=330;
+           }
 
-    } else {
-        this.x=1*Math.random()*15;
+           } else {
+             this.x=1*Math.random()*15;
         
-    }}
+      }}
 
-    //handle left moving vehicles
-    if(this.direction=='l'){
-      if (this.x > 1) {
-       this.x-=this.x*dt/.8*Math.random()*7;
-       //checks for collisions
-      // console.log(this.x-player.x);
-      //                                                                                                                                                                                                                             console.log(this.y-player.y);
-       if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
-       player.collide+=1;
-       player.x=230;
-       player.y=330;
-       }
+      //handle left moving vehicles
+      if(this.direction=='l'){
+          if (this.x > 1) {
+          this.x-=this.x*dt/.8*Math.random()*7;
+          //checks for collisions
+          // console.log(this.x-player.x);
+         //                                                                                                                                                                                                                             console.log(this.y-player.y);
+         if(Math.abs(this.x-player.x)<30 && Math.abs(this.y-player.y)<42){
+            player.collide+=1;
+            player.x=230;
+            player.y=330;
+         }
 
-    } else {
-        this.x=500-Math.random()*10;
+         } else {
+            this.x=500-Math.random()*10;
         }}
 
     }
